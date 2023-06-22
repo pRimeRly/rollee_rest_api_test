@@ -1,0 +1,5 @@
+requests~=2.31.0
+Flask~=2.3.2
+flask-sqlalchemy
+SQLAlchemy~=2.0.16
+passlib~=1.7.4

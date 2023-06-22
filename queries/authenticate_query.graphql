@@ -1,0 +1,258 @@
+mutation authenticate($email: EmailType!, $password: String!, $signupToken: String) {
+  authenticate(email: $email, password: $password, signupToken: $signupToken) {
+    id
+    ...User
+    __typename
+  }
+}
+
+fragment User on User {
+  id
+  email
+  firstName
+  fullName
+  jobTitle
+  lastName
+  pendingActivation
+  phoneNumber
+  profilePictureUrl
+  slackId
+  slackUsername
+  termsValidated
+  termsValidatedAt
+  unreadChatMessagesCount
+  unseenMentionsCount
+  mentionsViewedAt
+  corporate {
+    id
+    comments
+    companyId
+    role
+    token
+    missions {
+      id
+      count
+      __typename
+    }
+    missionPendingRating {
+      id
+      __typename
+    }
+    company {
+      id
+      skipTermsValidation
+      __typename
+    }
+    __typename
+  }
+  freelance {
+    id
+    preUser
+    isInstructor
+    flaggedForQualif
+    isFrozen
+    isQualified
+    acquisitionSource
+    availabilityDate
+    bankName
+    bic
+    bitbucketUrl
+    callAvailability
+    gitHubUrl
+    gitlabUrl
+    iban
+    isAvailable
+    isBillable
+    kaggleUrl
+    linkedInUrl
+    shouldUpdateAvailability
+    maxDistance
+    prefContract
+    prefEnvironment
+    prefMobility
+    prefTime
+    prefWorkplace
+    profileScore
+    publicId
+    referralCode
+    retribution
+    retryDate
+    stackExchangeUrl
+    status
+    talentSuccessManagerId
+    twitterUrl
+    websiteUrl
+    slackStatus
+    ...LinkedInImport
+    __typename
+  }
+  teamMember {
+    id
+    accountManager
+    freelancerAgent
+    ...TeamMemberTip
+    __typename
+  }
+  impersonating {
+    id
+    email
+    firstName
+    lastName
+    fullName
+    teamMember {
+      id
+      __typename
+    }
+    __typename
+  }
+  ...FreelancerNavBar
+  ...UserFlags
+  ...CorporatePermissions
+  ...FreelancePermissions
+  __typename
+}
+
+fragment TeamMemberTip on TeamMember {
+  id
+  tips
+  __typename
+}
+
+fragment UserFlags on User {
+  id
+  corporate {
+    id
+    ...CorporateFlags
+    __typename
+  }
+  freelance {
+    id
+    ...FreelancerFlags
+    __typename
+  }
+  __typename
+}
+
+fragment CorporateFlags on Corporate {
+  id
+  flags {
+    id
+    ...Flag
+    __typename
+  }
+  __typename
+}
+
+fragment Flag on Flag {
+  id
+  level
+  once
+  payload
+  permanent
+  type
+  __typename
+}
+
+fragment FreelancerFlags on Freelance {
+  id
+  flags {
+    id
+    ...Flag
+    __typename
+  }
+  __typename
+}
+
+fragment FreelancerNavBar on User {
+  id
+  slackId
+  profilePictureUrl
+  unreadChatMessagesCount
+  freelance {
+    id
+    status
+    __typename
+  }
+  __typename
+}
+
+fragment CorporatePermissions on User {
+  id
+  permissions {
+    id
+    showProfile
+    showMissions
+    showAdministration
+    showCommunity
+    showCrew
+    __typename
+  }
+  __typename
+}
+
+fragment FreelancePermissions on User {
+  id
+  permissions {
+    id
+    showProfile
+    showMissions
+    showStore
+    showInfos
+    showExperiences
+    showQualification
+    showInstructor
+    askForQualification
+    showPreferences
+    showCompany
+    __typename
+  }
+  __typename
+}
+
+fragment LinkedInImport on Freelance {
+  id
+  fetchingLinkedIn
+  lastLinkedInImport {
+    id
+    status
+    lastError
+    importedAt
+    __typename
+  }
+  biography
+  user {
+    id
+    profilePictureUrl
+    jobTitle
+    __typename
+  }
+  experienceInYears
+  experiences {
+    id
+    isCometMission
+    startDate
+    endDate
+    companyName
+    description
+    location
+    skills {
+      id
+      name
+      primary
+      freelanceExperienceSkillId
+      __typename
+    }
+    __typename
+  }
+  education {
+    id
+    schoolName
+    degree
+    topic
+    description
+    startedIn
+    graduatedIn
+    __typename
+  }
+  __typename
+}
